@@ -18,43 +18,28 @@ class DirectionManagerTest extends KernelTestCase
         $this->directionManager = $container->get(DirectionManager::class);
     }
 
-    public function testGetNorth(){
-        /**
-         * @var $node DirectionNode
-         */
-        $node = $this->directionManager->getDirection('N');
-        $this->assertEquals('N',$node->data);
-        $this->assertEquals('E',$node->getNextData());
-        $this->assertEquals('W',$node->getPrevData());
+    public function getTestCases(): array
+    {
+        return [
+            ['direction' => 'N', 'left' => 'W' , 'right' => 'E'],
+            ['direction' => 'S', 'left' => 'E' , 'right' => 'W'],
+            ['direction' => 'W', 'left' => 'S' , 'right' => 'N'],
+            ['direction' => 'E', 'left' => 'N' , 'right' => 'S'],
+        ];
     }
 
-    public function testGetSouth(){
+    /**
+     * @dataProvider getTestCases
+     */
+    public function testGetDirection(string $direction, string $left, string $right)
+    {
         /**
          * @var $node DirectionNode
          */
-        $node = $this->directionManager->getDirection('S');
-        $this->assertEquals('S',$node->data);
-        $this->assertEquals('W',$node->getNextData());
-        $this->assertEquals('E',$node->getPrevData());
+        $node = $this->directionManager->getDirection($direction);
+        $this->assertEquals($direction, $node->data);
+        $this->assertEquals($right, $node->getNextData());
+        $this->assertEquals($left, $node->getPrevData());
     }
 
-    public function testGetWest(){
-        /**
-         * @var $node DirectionNode
-         */
-        $node = $this->directionManager->getDirection('W');
-        $this->assertEquals('W',$node->data);
-        $this->assertEquals('N',$node->getNextData());
-        $this->assertEquals('S',$node->getPrevData());
-    }
-
-    public function testGetEast(){
-        /**
-         * @var $node DirectionNode
-         */
-        $node = $this->directionManager->getDirection('E');
-        $this->assertEquals('E',$node->data);
-        $this->assertEquals('S',$node->getNextData());
-        $this->assertEquals('N',$node->getPrevData());
-    }
 }
