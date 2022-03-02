@@ -2,13 +2,17 @@
 
 namespace App\Core\DataStructure;
 
-class Node
+use App\Core\ControlFunctions\Directions\IDirection;
+
+class DirectionNode
 {
     public string $data;
 
-    public ?Node $next;
+    public ?DirectionNode $next;
 
-    public ?Node $prev;
+    public ?DirectionNode $prev;
+
+    public IDirection $directionClass;
 
     public function getNextData():string {
         return $this->next->data;

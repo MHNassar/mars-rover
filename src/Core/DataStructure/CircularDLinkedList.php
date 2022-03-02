@@ -4,13 +4,11 @@ namespace App\Core\DataStructure;
 
 class CircularDLinkedList
 {
-    public ?Node $head = null;
-    public ?Node $tail = null;
+    public ?DirectionNode $head = null;
+    public ?DirectionNode $tail = null;
 
-    public function append(string $data)
+    public function append(DirectionNode $node)
     {
-        $node = new Node();
-        $node->data = $data;
 
         if ($this->head == null)
         {
@@ -28,7 +26,7 @@ class CircularDLinkedList
         $this->head = $node;
     }
 
-    public function find(string $data): ?Node
+    public function find(string $data): ?DirectionNode
     {
         $temp = $this->head;
         while ($temp != NULL && $temp->data !=$data) {

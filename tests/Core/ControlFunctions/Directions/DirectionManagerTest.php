@@ -3,7 +3,7 @@
 namespace App\Tests\Core\ControlFunctions\Directions;
 
 use App\Core\ControlFunctions\Directions\DirectionManager;
-use App\Core\DataStructure\Node;
+use App\Core\DataStructure\DirectionNode;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DirectionManagerTest extends KernelTestCase
@@ -20,9 +20,9 @@ class DirectionManagerTest extends KernelTestCase
 
     public function testGetNorth(){
         /**
-         * @var $node Node
+         * @var $node DirectionNode
          */
-        $node = $this->directionManager->getDirections('N');
+        $node = $this->directionManager->getDirection('N');
         $this->assertEquals('N',$node->data);
         $this->assertEquals('E',$node->getNextData());
         $this->assertEquals('W',$node->getPrevData());
@@ -30,9 +30,9 @@ class DirectionManagerTest extends KernelTestCase
 
     public function testGetSouth(){
         /**
-         * @var $node Node
+         * @var $node DirectionNode
          */
-        $node = $this->directionManager->getDirections('S');
+        $node = $this->directionManager->getDirection('S');
         $this->assertEquals('S',$node->data);
         $this->assertEquals('W',$node->getNextData());
         $this->assertEquals('E',$node->getPrevData());
@@ -40,9 +40,9 @@ class DirectionManagerTest extends KernelTestCase
 
     public function testGetWest(){
         /**
-         * @var $node Node
+         * @var $node DirectionNode
          */
-        $node = $this->directionManager->getDirections('W');
+        $node = $this->directionManager->getDirection('W');
         $this->assertEquals('W',$node->data);
         $this->assertEquals('N',$node->getNextData());
         $this->assertEquals('S',$node->getPrevData());
@@ -50,9 +50,9 @@ class DirectionManagerTest extends KernelTestCase
 
     public function testGetEast(){
         /**
-         * @var $node Node
+         * @var $node DirectionNode
          */
-        $node = $this->directionManager->getDirections('E');
+        $node = $this->directionManager->getDirection('E');
         $this->assertEquals('E',$node->data);
         $this->assertEquals('S',$node->getNextData());
         $this->assertEquals('N',$node->getPrevData());

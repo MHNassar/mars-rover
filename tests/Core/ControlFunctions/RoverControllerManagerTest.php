@@ -2,19 +2,19 @@
 
 namespace App\Tests\Core\ControlFunctions;
 
-use App\Core\ControlFunctions\RoverControllerManager;
+use App\Core\ControlFunctions\RoverController;
 use App\Core\Models\Rover;
 use App\Core\Models\RoverLocation;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class RoverControllerManagerTest extends KernelTestCase
 {
-    private ?RoverControllerManager $roverControllerManager;
+    private ?RoverController $roverControllerManager;
     protected function setUp(): void
     {
         self::bootKernel();
         $container = static::getContainer();
-        $this->roverControllerManager = $container->get(RoverControllerManager::class);
+        $this->roverControllerManager = $container->get(RoverController::class);
     }
 
     public function testSpinToLFromNorth()

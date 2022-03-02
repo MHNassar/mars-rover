@@ -28,12 +28,22 @@ class Rover
         $this->location->direction = $direction;
     }
 
-    /**
-     * @return string
-     */
-    public function getOrders(): string
+    public function getOutputString(int $index) :array
     {
-        return $this->orders;
+        $roverName = sprintf('Rover-%s', $index);
+        $locationString = sprintf('%s %s %s',
+            $this->location->coordinatePoint->xAxis,
+            $this->location->coordinatePoint->yAxis,
+            $this->location->direction);
+        return [$roverName, $locationString];
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrders(): array
+    {
+        return str_split($this->orders);
     }
 
     /**

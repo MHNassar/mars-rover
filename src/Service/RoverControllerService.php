@@ -3,15 +3,24 @@
 namespace App\Service;
 
 use App\Core\ControlFunctions\InputParser;
-use App\Core\ControlFunctions\RoverControllerManager;
+use App\Core\ControlFunctions\IRoverController;
+use App\Core\ControlFunctions\RoverController;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class RoverControllerService
 {
 
+    const COMMANDS_FUNC = [
+        'L' => 'spinLeft',
+        'R' => 'spinRight',
+        'M' => 'move',
+    ];
+
     private InputParser $parser;
-    private RoverControllerManager $roverManager;
-    public function __construct(InputParser $parser,RoverControllerManager $roverManager) {
+
+    private IRoverController $roverManager;
+
+    public function __construct(InputParser $parser, RoverController $roverManager) {
         $this->parser = $parser;
         $this->roverManager = $roverManager;
     }
@@ -25,16 +34,25 @@ class RoverControllerService
         $io->progressStart(count($input->rovers));
         $output = [];
         $index = 1;
-        $this->roverManager->setPlateau($input->plateau);
+        $this->roverManager->connectPlateau($input->plateau);
         foreach ($input->rovers as $rover){
-            $this->roverManager->setRover($rover);
-            $this->roverManager->control();
-            $roverLocation = $this->roverManager->getRover()->getLocation();
-            $output[] = ['rover'.$index++, sprintf('%s %s %s',$roverLocation->coordinatePoint->xAxis, $roverLocation->coordinatePoint->yAxis, $roverLocation->direction)];
+            $this->roverManager->connectRover($rover);
+            $commands = $rover->getOrders();
+            foreach ($commands as $commandLitter)
+            {
+                $functionName = self::COMMANDS_FUNC[$commandLitter];
+                $this->roverManager->$functionName();
+            }
+
+            $output[] =  $this->roverManager->getRover()->getOutputString($index++);
+
             $io->progressAdvance();
         }
+
         $io->progressFinish();
+
         $io->table(['Rover Name','co-ordinates and heading'],$output);
+
         $io->success('Done!!');
     }
 }

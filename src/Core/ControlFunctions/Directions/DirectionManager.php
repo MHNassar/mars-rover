@@ -2,7 +2,7 @@
 
 namespace App\Core\ControlFunctions\Directions;
 use App\Core\DataStructure\CircularDLinkedList;
-use App\Core\DataStructure\Node;
+use App\Core\DataStructure\DirectionNode;
 
 class DirectionManager
 {
@@ -24,19 +24,18 @@ class DirectionManager
          */
         foreach ($this->available_direction as $key => $direction)
         {
-            $this->directions->append($key);
+            $node = new DirectionNode();
+            $node->data = $key;
+            $node->directionClass = $direction;
+            $this->directions->append($node);
         }
     }
 
-    public function getDirections(string $value): Node
+    public function getDirection(string $value): DirectionNode
     {
        return $this->directions->find($value);
     }
 
-    public function getDirectionClass(string $value): IDirection
-    {
-        return $this->available_direction[$value];
-    }
 
 
 
