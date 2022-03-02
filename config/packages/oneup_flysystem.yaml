@@ -1,0 +1,12 @@
+# Read the documentation: https://github.com/1up-lab/OneupFlysystemBundle
+oneup_flysystem:
+    adapters:
+        orders_adapter:
+            local:
+                location: "%kernel.project_dir%/public"
+
+    filesystems:
+        orders:
+            adapter: orders_adapter
+            visibility: private
+            directory_visibility: private

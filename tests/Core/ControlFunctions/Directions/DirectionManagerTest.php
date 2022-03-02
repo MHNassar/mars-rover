@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Tests\Core;
+namespace App\Tests\Core\ControlFunctions\Directions;
 
+use App\Core\ControlFunctions\Directions\DirectionManager;
 use App\Core\DataStructure\Node;
-use App\Core\DirectionManager;
-
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class DirectionManagerTest extends KernelTestCase
 {
+
     private ?DirectionManager $directionManager;
+
     protected function setUp(): void
     {
         self::bootKernel();
@@ -21,10 +22,10 @@ class DirectionManagerTest extends KernelTestCase
         /**
          * @var $node Node
          */
-       $node = $this->directionManager->getDirections('N');
-       $this->assertEquals('N',$node->data);
-       $this->assertEquals('E',$node->getNextData());
-       $this->assertEquals('W',$node->getPrevData());
+        $node = $this->directionManager->getDirections('N');
+        $this->assertEquals('N',$node->data);
+        $this->assertEquals('E',$node->getNextData());
+        $this->assertEquals('W',$node->getPrevData());
     }
 
     public function testGetSouth(){
@@ -56,5 +57,4 @@ class DirectionManagerTest extends KernelTestCase
         $this->assertEquals('S',$node->getNextData());
         $this->assertEquals('N',$node->getPrevData());
     }
-
 }

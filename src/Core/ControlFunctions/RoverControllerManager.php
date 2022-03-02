@@ -2,9 +2,8 @@
 
 namespace App\Core\ControlFunctions;
 
+use App\Core\ControlFunctions\Directions\DirectionManager;
 use App\Core\ControlFunctions\Spin\SpinControlManager;
-use App\Core\Direction;
-use App\Core\DirectionManager;
 use App\Core\Models\Rover;
 
 class RoverControllerManager
@@ -30,6 +29,24 @@ class RoverControllerManager
         return $this->rover;
     }
 
+    public function control()
+    {
+        // get Commands
+        $commands = $this->rover->getOrders();
+        if (empty($commands)){
+            throw new \Exception("No commands provided");
+        }
+        $commands = str_split($commands);
+        foreach ($commands as $commandLitter)
+        {
+            if ($commandLitter === 'M') {
+                $this->move();
+            }else {
+                $this->spin($commandLitter);
+            }
+        }
+    }
+
     public function spin(string $spinTo){
         $directionString = $this->rover->getDirection();
         $currentDirection = $this->directionManager->getDirections($directionString);
@@ -39,10 +56,9 @@ class RoverControllerManager
 
     public function move()
     {
-
+        $directionString = $this->rover->getDirection();
+        $directionClass = $this->directionManager->getDirectionClass($directionString);
+        $directionClass->move($this->rover->getLocation());
     }
-
-
-
 
 }

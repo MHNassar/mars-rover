@@ -6,6 +6,8 @@ class Rover
 {
     private RoverLocation $location;
 
+    private string $orders;
+
     public function __construct(RoverLocation $initLocation)
     {
         $this->location = $initLocation;
@@ -24,6 +26,22 @@ class Rover
     public function setDirection(string $direction)
     {
         $this->location->direction = $direction;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrders(): string
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param string $orders
+     */
+    public function setOrders(string $orders): void
+    {
+        $this->orders = $orders;
     }
 
 
