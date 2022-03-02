@@ -25,11 +25,12 @@ class RoverControllerService
         $io->progressStart(count($input->rovers));
         $output = [];
         $index = 1;
+        $this->roverManager->setPlateau($input->plateau);
         foreach ($input->rovers as $rover){
             $this->roverManager->setRover($rover);
             $this->roverManager->control();
             $roverLocation = $this->roverManager->getRover()->getLocation();
-            $output[] = ['rover'.$index++, sprintf('%s %s %s',$roverLocation->x,$roverLocation->y,$roverLocation->direction)];
+            $output[] = ['rover'.$index++, sprintf('%s %s %s',$roverLocation->coordinatePoint->xAxis, $roverLocation->coordinatePoint->yAxis, $roverLocation->direction)];
             $io->progressAdvance();
         }
         $io->progressFinish();

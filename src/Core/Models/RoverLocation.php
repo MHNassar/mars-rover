@@ -6,9 +6,7 @@ use Exception;
 class RoverLocation
 {
 
-    public int $x;
-
-    public int $y;
+    public CoordinatePoint $coordinatePoint;
 
     public string $direction;
 

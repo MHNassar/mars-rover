@@ -79,10 +79,11 @@ class Plateau
     }
 
 
-    public function isValidCoordinate(int $x, int $y): bool
+    public function isValidCoordinate(CoordinatePoint $point): bool
     {
-        if ($x > $this->xMax || $x < $this->xMin ||
-            $y > $this->yMax || $y < $this->yMin) {
+
+        if ($point->xAxis > $this->xMax || $point->xAxis < $this->xMin ||
+            $point->yAxis > $this->yMax || $point->yAxis < $this->yMin) {
             return false;
         }
         return true;

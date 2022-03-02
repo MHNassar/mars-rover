@@ -2,10 +2,10 @@
 
 namespace App\Core\ControlFunctions\Directions;
 
-use App\Core\Models\RoverLocation;
+use App\Core\Models\CoordinatePoint;
 
 interface IDirection
 {
-    public function move(RoverLocation $location):void;
+    public function getNextPoints(CoordinatePoint $point): CoordinatePoint;
 
 }

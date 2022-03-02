@@ -2,6 +2,7 @@
 
 namespace App\Core\ControlFunctions\Directions;
 
+use App\Core\Models\CoordinatePoint;
 use App\Core\Models\RoverLocation;
 
 class South implements IDirection
@@ -9,8 +10,11 @@ class South implements IDirection
 
     public string $shortName = 'S';
 
-    public function move(RoverLocation $location): void
+    public function getNextPoints(CoordinatePoint $point): CoordinatePoint
     {
-        $location->y -=1;
+        $newPoint = new CoordinatePoint();
+        $newPoint->yAxis = $point->yAxis - 1;
+        $newPoint->xAxis = $point->xAxis;
+        return $newPoint;
     }
 }

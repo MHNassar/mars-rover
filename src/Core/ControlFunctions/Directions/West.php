@@ -2,15 +2,18 @@
 
 namespace App\Core\ControlFunctions\Directions;
 
-use App\Core\Models\RoverLocation;
+use App\Core\Models\CoordinatePoint;
 
 class West implements IDirection
 {
 
     public string $shortName = 'W';
 
-    public function move(RoverLocation $location): void
+    public function getNextPoints(CoordinatePoint $point) :CoordinatePoint
     {
-        $location->x -=1;
+        $newPoint = new CoordinatePoint();
+        $newPoint->yAxis = $point->yAxis;
+        $newPoint->xAxis = $point->xAxis - 1;
+        return $newPoint;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Core\ControlFunctions;
 
 use App\Core\ControlFunctions\Directions\DirectionManager;
 use App\Core\ControlFunctions\Spin\SpinControlManager;
+use App\Core\Models\Plateau;
 use App\Core\Models\Rover;
 
 class RoverControllerManager
@@ -13,6 +14,8 @@ class RoverControllerManager
     private SpinControlManager $spinControlManager;
 
     private DirectionManager $directionManager;
+
+    private Plateau $plateau;
 
     public function __construct(SpinControlManager $spinControlManager, DirectionManager $directionManager)
     {
@@ -24,10 +27,21 @@ class RoverControllerManager
     {
         $this->rover = $rover;
     }
+
     public function getRover(): ?Rover
     {
         return $this->rover;
     }
+
+    /**
+     * @param Plateau $plateau
+     */
+    public function setPlateau(Plateau $plateau): void
+    {
+        $this->plateau = $plateau;
+    }
+
+
 
     public function control()
     {
@@ -58,7 +72,12 @@ class RoverControllerManager
     {
         $directionString = $this->rover->getDirection();
         $directionClass = $this->directionManager->getDirectionClass($directionString);
-        $directionClass->move($this->rover->getLocation());
+        $currentPoint = $this->rover->getLocation()->coordinatePoint;
+        $nextPoints = $directionClass->getNextPoints($currentPoint);
+        if($this->plateau->isValidCoordinate($nextPoints))
+        {
+            $this->rover->getLocation()->coordinatePoint = $nextPoints;
+        }
     }
 
 }

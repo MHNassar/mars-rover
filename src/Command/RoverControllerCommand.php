@@ -29,7 +29,6 @@ class RoverControllerCommand extends Command
 
         $this->controllerService->processRover($io);
         return 1;
-
     }
 
 }

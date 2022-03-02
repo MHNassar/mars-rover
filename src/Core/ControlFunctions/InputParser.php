@@ -3,6 +3,7 @@
 namespace App\Core\ControlFunctions;
 
 
+use App\Core\Models\CoordinatePoint;
 use App\Core\Models\Input;
 use App\Core\Models\Plateau;
 use App\Core\Models\Rover;
@@ -38,8 +39,10 @@ class InputParser
             $locationData  = explode(' ',$data[0]);
 
             $location = new RoverLocation();
-            $location->x = $locationData[0];
-            $location->y = $locationData[1];
+            $point = new CoordinatePoint();
+            $point->xAxis = $locationData[0];
+            $point->yAxis = $locationData[1];
+            $location->coordinatePoint = $point;
             $location->direction = $locationData[2];
 
             $rover = new Rover($location);
