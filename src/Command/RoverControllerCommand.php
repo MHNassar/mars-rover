@@ -26,8 +26,7 @@ class RoverControllerCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $io->title('Start Discovering ...');
-
-        $this->controllerService->processRover($io);
+        $this->controllerService->process($io);
         return 1;
     }
 

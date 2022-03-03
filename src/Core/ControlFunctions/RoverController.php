@@ -4,16 +4,18 @@ namespace App\Core\ControlFunctions;
 
 use App\Core\ControlFunctions\Directions\DirectionManager;
 use App\Core\DataStructure\DirectionNode;
+use App\Core\Exception\WrongInitRoverControllerException;
 use App\Core\Models\Plateau;
 use App\Core\Models\Rover;
+use function PHPUnit\Framework\isNull;
 
 class RoverController implements IRoverController
 {
-    private ?Rover $rover;
+    private ?Rover $rover = null;
 
     private DirectionManager $directionManager;
 
-    private Plateau $plateau;
+    private ?Plateau $plateau = null;
 
     public function __construct(DirectionManager $directionManager)
     {
@@ -33,24 +35,13 @@ class RoverController implements IRoverController
     {
         $this->plateau = $plateau;
     }
-//
-//    public function control()
-//    {
-//        // get Commands
-//        $commands = $this->rover->getOrders();
-//        if (empty($commands)){
-//            throw new Exception("No commands provided");
-//        }
-//        $commands = str_split($commands);
-//        foreach ($commands as $commandLitter)
-//        {
-//            $functionName = self::COMMANDS_FUNC[$commandLitter];
-//            $this->$functionName();
-//        }
-//    }
-//
+
     public function move()
     {
+        if (is_null($this->rover) || is_null($this->plateau))
+        {
+            throw new WrongInitRoverControllerException();
+        }
         $currentDirection = $this->getCurrentDirection();
         $directionClass = $currentDirection->directionClass;
         $currentPoint = $this->rover->getLocation()->coordinatePoint;
@@ -59,10 +50,16 @@ class RoverController implements IRoverController
         {
             $this->rover->getLocation()->coordinatePoint = $nextPoints;
         }
+
+
     }
 
     public function spinLeft()
     {
+        if (is_null($this->rover) || is_null($this->plateau))
+        {
+            throw new WrongInitRoverControllerException();
+        }
         $currentDirection = $this->getCurrentDirection();
         $newDirection = $currentDirection->prev;
         $this->rover->setDirection($newDirection->data);
@@ -70,6 +67,10 @@ class RoverController implements IRoverController
     }
     public function spinRight()
     {
+        if (is_null($this->rover) || is_null($this->plateau))
+        {
+            throw new WrongInitRoverControllerException();
+        }
         $currentDirection = $this->getCurrentDirection();
         $newDirection = $currentDirection->next;
         $this->rover->setDirection($newDirection->data);

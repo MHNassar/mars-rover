@@ -1,0 +1,11 @@
+version: '2.1'
+services:
+
+  php8_mars_rover:
+    build:
+      context: ./Docker/php
+    container_name: php8_mars_rover
+    working_dir: /src
+    volumes:
+      - .:/src
+      - ${HOME}/.ssh:/root/.ssh:ro

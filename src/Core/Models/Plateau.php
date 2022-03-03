@@ -2,8 +2,6 @@
 
 namespace App\Core\Models;
 
-use InvalidArgumentException;
-
 class Plateau
 {
     private int $xMax;
@@ -14,13 +12,6 @@ class Plateau
 
     private int $yMin = 0;
 
-    /**
-     * @return int
-     */
-    public function getXMax(): int
-    {
-        return $this->xMax;
-    }
 
     /**
      * @param int $xMax
@@ -30,13 +21,6 @@ class Plateau
         $this->xMax = $xMax;
     }
 
-    /**
-     * @return int
-     */
-    public function getYMax(): int
-    {
-        return $this->yMax;
-    }
 
     /**
      * @param int $yMax
@@ -78,12 +62,11 @@ class Plateau
         $this->yMin = $yMin;
     }
 
-
     public function isValidCoordinate(CoordinatePoint $point): bool
     {
 
-        if ($point->xAxis > $this->xMax || $point->xAxis < $this->xMin ||
-            $point->yAxis > $this->yMax || $point->yAxis < $this->yMin) {
+        if ($point->xAxis >= $this->xMax || $point->xAxis < $this->xMin ||
+            $point->yAxis >= $this->yMax || $point->yAxis < $this->yMin) {
             return false;
         }
         return true;

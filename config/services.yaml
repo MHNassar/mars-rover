@@ -19,7 +19,7 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-    App\Core\ControlFunctions\InputParser:
+    App\Core\InputParser\InputFileParser:
         arguments:
             $filesystem: '@oneup_flysystem.orders_filesystem'
 
