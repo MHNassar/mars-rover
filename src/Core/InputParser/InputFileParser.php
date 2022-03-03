@@ -2,6 +2,7 @@
 
 namespace App\Core\InputParser;
 
+use App\Core\ControlFunctions\Directions\DirectionManager;
 use App\Core\Exception\InvalidLocationException;
 use App\Core\Models\CoordinatePoint;
 use App\Core\Models\Input;
@@ -16,9 +17,12 @@ class InputFileParser implements IParser
 {
     private Filesystem $filesystem;
 
-    public function __construct(Filesystem $filesystem)
+    private DirectionManager $directionManager;
+
+    public function __construct(Filesystem $filesystem, DirectionManager $directionManager)
     {
         $this->filesystem = $filesystem;
+        $this->directionManager = $directionManager;
     }
 
     /**
@@ -100,8 +104,14 @@ class InputFileParser implements IParser
 
         $location = new RoverLocation();
         $location->coordinatePoint = $point;
+        if(is_null($this->directionManager->getDirection($locationData[2])))
+        {
+            $message = sprintf('Direction ( %s ) not exist !!',$locationData[2]);
+            throw new InvalidLocationException($message);
+        }
         $location->direction = mb_strtoupper($locationData[2]);
 
         return $location;
     }
+
 }

@@ -37,12 +37,12 @@ class RoverControllerTest extends KernelTestCase
 
     public function testNotMove()
     {
-        $rover = $this->mockRover(4, 4, 'E');
+        $rover = $this->mockRover(5, 5, 'E');
         $this->roverController->connectRover($rover);
         $this->roverController->move();
         $newLocation = $this->roverController->getRover()->getLocation();
-        $this->assertEquals(4,$newLocation->coordinatePoint->yAxis);
-        $this->assertEquals(4,$newLocation->coordinatePoint->xAxis);
+        $this->assertEquals(5,$newLocation->coordinatePoint->yAxis);
+        $this->assertEquals(5,$newLocation->coordinatePoint->xAxis);
     }
 
     public function testNotMove2()

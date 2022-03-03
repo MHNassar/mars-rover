@@ -31,9 +31,13 @@ class DirectionManager
         }
     }
 
-    public function getDirection(string $value): DirectionNode
+    public function getDirection(string $value): ?DirectionNode
     {
-       return $this->directions->find($value);
+
+        if (array_key_exists($value,$this->available_direction)){
+            return $this->directions->find($value);
+        }
+        return  null;
     }
 
 
