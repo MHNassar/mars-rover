@@ -4,7 +4,7 @@ Solving Mars-rover problem.
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Technical Requirements](#technical_requirements)
+* [Technical Requirements](#technical-requirements)
 * [Setup](#setup)
 * [Test](#test)
 * [Usage](#usage)
