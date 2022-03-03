@@ -35,7 +35,7 @@ Project is created with:
 Before you install project you only need to install
 [Docker](https://docs.docker.com/get-docker/) | [docker-compose](https://docs.docker.com/compose/install/)
 
-## Setup
+## Setup:
 ```
  git clone git@github.com:MHNassar/mars-rover.git
  cd /mars-rover
@@ -50,7 +50,7 @@ To install the project
 ```bash
 docker exec -it php8_mars_rover composer install
 ```
-## Test 
+## Test:
 
 To run the tests
 
@@ -68,3 +68,18 @@ docker exec -it php8_mars_rover php  bin/console rover:control
 * Go to **public/input.txt**
 * Add the rover location and commands 
 * run the command again
+
+#Code Design
+I'm including Symfony and Symfony Components to use the power of dependency injection and console and so on ... 
+### Core of the project has tow main parts 
+#### controlFunction 
+###### Directions manager
+* using Doubly Circular Linked List to manage the direction to get the right  and the left direction 
+* Each Direction has his own Class to apply SRP also make any change in code easy
+
+###### Rover controller 
+* Set of functions should control the Rover in the plateau 
+
+#### Input parser 
+* The main task of this parser to parse the input and create Input class 
+* For now Reading input from text file it's Open for add many types of parsers   
