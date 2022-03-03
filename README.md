@@ -43,7 +43,7 @@ Before you install project you only need to install
 ```
 To check status 
 ```bash
- docker-compose up --build -d
+ docker-compose ps
 ```
 To install the project  
 
