@@ -8,6 +8,7 @@ Solving Mars-rover problem.
 * [Setup](#setup)
 * [Test](#test)
 * [Usage](#usage)
+* [Code Design](#code-design)
 
 
 ## General info
@@ -69,7 +70,7 @@ docker exec -it php8_mars_rover php  bin/console rover:control
 * Add the rover location and commands 
 * run the command again
 
-#Code Design
+# Code Design
 I'm including Symfony and Symfony Components to use the power of dependency injection and console and so on ... 
 ### Core of the project has tow main parts 
 #### controlFunction 
