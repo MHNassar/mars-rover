@@ -33,6 +33,23 @@ class Plateau
     /**
      * @return int
      */
+    public function getXMax(): int
+    {
+        return $this->xMax;
+    }
+
+    /**
+     * @return int
+     */
+    public function getYMax(): int
+    {
+        return $this->yMax;
+    }
+
+
+    /**
+     * @return int
+     */
     public function getXMin(): int
     {
         return $this->xMin;
